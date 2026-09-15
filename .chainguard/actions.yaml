@@ -2,3 +2,4 @@ enabled: false
 
 migrate:
   enabled: true
+  version-strategy: smallest-major-bump
