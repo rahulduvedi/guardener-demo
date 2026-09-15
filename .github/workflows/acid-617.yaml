@@ -1,0 +1,29 @@
+name: ACID-617 Guardener fixture
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    # Parser-only fixture: this condition is intentionally impossible so none
+    # of the deliberately invalid negative references can execute.
+    if: ${{ github.event_name == 'guardener-fixture-only' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Xometry SHA pin with source version comment
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: Conflicting tag and version comment
+        uses: actions/checkout@v99.0.0 # v3.6.0
+
+      - name: Branch with version comment
+        uses: actions/checkout@main # v3.6.0
+
+      - name: Prerelease with version comment
+        uses: actions/checkout@v99.0.0-rc.1 # v3.6.0
+
+      - name: SHA pin without a source version comment
+        uses: actions/checkout@1111111111111111111111111111111111111111
